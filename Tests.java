@@ -158,6 +158,26 @@ tree.put(60, 60);
 tree.getLCA(20, 60);
 
 }
+tree.put(20, 20);
+tree.put(60, 60);
 
-} 
+assertEquals(tree.height(),2);
+
+System.out.println(tree.printKeysInOrder());
+
+// test simple 1 above
+@@ -214,10 +216,13 @@ public void testSpecialCaseDuplicateInputA()
+tree.put(40, 40);
+tree.put(100, 100);
+tree.put(40, 40);
+tree.put(20, 20);
+tree.put(60, 60);
+
+System.out.println(tree.printKeysInOrder());
+
+assertEquals(tree.height(),2);
+
+// test simple 1 above
+assertEquals("", Integer.valueOf(40), tree.getLCA(20, 60));
+}
 
