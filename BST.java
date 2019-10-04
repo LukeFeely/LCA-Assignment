@@ -30,6 +30,10 @@ public class Bag<Item> implements Iterable<Item> {
         private Item item;
         private Node<Item> next;
     }
+}
+//Add the common Nodes by going through all the nodes in A's path/line
+for (DAGNode n : keyANodes)
+if (keyBNodes.contains(n)) commonNodes.add(n);
     
     /**
      * Initializes an empty bag.
