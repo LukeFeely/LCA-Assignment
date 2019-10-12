@@ -17,7 +17,12 @@ public class LCA <Key extends Comparable<Key>, Value>{
 
 	}
 	
-	
+	class DAG{
+		private Node root;
+		public DAG(Node root){
+			this.root = root;
+		}
+	}
 	
 	public boolean isEmpty() { 
 		return size() == 0; 
