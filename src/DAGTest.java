@@ -2,6 +2,7 @@ import static org.junit.Assert.*;
  import org.junit.Test;
  public class DAGTest {
  	
+	 //Following tests check Directed Graph class works correctly
 			@Test
 			public void testForDirectedGraph(){
 				DAG test = new DAG(10);
@@ -17,12 +18,6 @@ import static org.junit.Assert.*;
 				assertEquals("", 10, test.V());
 				String ans = "[5, 6]";
 				assertEquals("",ans, test.adj(4).toString());
-			}
-			
-			@Test
-			public void testLCAforEmpty() {
-				DAG lca = new DAG(10);
-				assertEquals("Testing LCA is -1", -1, lca.findLCA(1, 2));
 			}
 			
 			
@@ -54,7 +49,7 @@ import static org.junit.Assert.*;
 			
 			@Test(expected=Exception.class)
 			public void exceptionTest(){
-				//Can't make a directed graph with less than 0 vertices!!
+				//Can't make a directed graph with less than 0 vertices
 				DAG test3 = new DAG(-5);
 			}
 			
@@ -66,9 +61,10 @@ import static org.junit.Assert.*;
 				cyclic.addEdge(1, 2);
 				cyclic.addEdge(2, 0);
 				
+				//Parameter is first vertex
 				cyclic.findCycle(0);
 				
-				//Cycle from 0 - 1 - 2 - 0, which should return true.
+				//Cycle from 0 - 1 - 2 - 0, should return true.
 				assertTrue(cyclic.hasCycle());
 				
 				DAG acyclic = new DAG(20);
@@ -84,7 +80,10 @@ import static org.junit.Assert.*;
 			@Test
 			public void testLCA(){
 				DAG lca = new DAG(10);
-		
+				
+				//--------2---5----7--
+				//---0--1-------6----8
+				//--------3---4-------
 				lca.addEdge(0, 1);
 				lca.addEdge(1, 2);
 				lca.addEdge(1, 3);
@@ -106,7 +105,9 @@ import static org.junit.Assert.*;
 			@Test
 			public void testLCAForNoCommonAncestors(){
 				DAG lca2 = new DAG(11);
-				
+				//-----1----5----
+				//---0-|---/-----
+				//-----2--3---4--
 				lca2.addEdge(0, 1);
 				lca2.addEdge(0, 2);
 				lca2.addEdge(1, 2);
@@ -123,10 +124,16 @@ import static org.junit.Assert.*;
 				assertEquals("when one node doesn't exist", -1, lca2.findLCA(7, 3));
 			}
 			
-			//unique case where graph is just a digraph but not acyclic
+			//unique case where graph is just a digraph but no acyclic!
 			@Test
 			public void testLCAForNonDAG(){
 				DAG lca3 = new DAG(11);
+				//---0
+				//--|-\
+				//---\-\
+				//----2--3
+				
+				//0 - 2 - 3 make a cycle
 				
 				lca3.addEdge(0, 1);
 				lca3.addEdge(0, 2);
@@ -142,5 +149,12 @@ import static org.junit.Assert.*;
 				assertEquals("", -1, lca3.findLCA(1, 3));
  			}
 			
+			@Test
+			public void testLCAforEmpty() {
+				DAG lca = new DAG(10);
+				assertEquals("Testing LCA is -1", -1, lca.findLCA(1, 2));
+			}
 			
+			// Source used https://github.com/connold9/LCA/blob/master/DAGTest.java
+		
  }

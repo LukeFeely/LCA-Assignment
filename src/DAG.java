@@ -11,8 +11,8 @@ public class DAG {
 	private boolean marked[];		//tracks visited vertices
 	private boolean hasCycle;		//Will be true if there is a cycle in graph
     private boolean stack[];		//The order in which vertices were visited
-    private int[] distTo;      // length of shortest s->v path
     private int[] edgeTo;      // last edge on shortest s->v path
+    private int[] distTo;      // length of shortest s->v path
 
     
 	public DAG(int V)
@@ -37,7 +37,23 @@ public class DAG {
 	public int E() {
         return E;
     }
+
 	
+	
+	//Adds a directed edge from v->w
+	public void addEdge(int v, int w)
+	{
+	    if((validateVertex(v)>0)&&(validateVertex(w)>0))
+	    {
+	    	adj[v].add(w);
+	    	indegree[w]++;
+	    	E++;
+	    }
+	    else{
+	    	System.out.println("Please enter vertices between 0 & n-1");
+	    }
+	    	
+	}
 	
 	private int validateVertex(int v) {
         if (v < 0 || v >= V)
@@ -45,21 +61,6 @@ public class DAG {
         else
         	return 1;}
 
-	
-	//Adds a directed edge from v->w
-		public void addEdge(int v, int w)
-		{
-		    if((validateVertex(v)>0)&&(validateVertex(w)>0))
-		    {
-		    	adj[v].add(w);
-		    	indegree[w]++;
-		    	E++;
-		    }
-		    else{
-		    	System.out.println("Please enter vertices between 0 & n-1");
-		    }
-		    	
-		}
 	
 	//Returns amount of directed edges incident to vertex v
 	public int indegree(int v) {
@@ -180,4 +181,6 @@ public class DAG {
 	        }
 	        return reverse;
 	    }
+	 
+	 // Source used: https://github.com/connold9/LCA/blob/master/DAG.java
 }

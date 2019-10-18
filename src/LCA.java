@@ -24,25 +24,42 @@ public class LCA <Key extends Comparable<Key>, Value>{
 		}
 	}
 	
-	public int size() { 
-		return size(root); 
-	}
-	
 	public boolean isEmpty() { 
 		return size() == 0; 
 	}
+
+
+	public int size() { 
+		return size(root); 
+	}
+
+	// return the number of key-value pairs in BST which are rooted at x
 	private int size(Node x) {
+		// if BST is empty
 		if (x == null) return 0;
 
 		//N = #nodes
 		else return x.N;
 	}
 
-	
+	/**
+	 *  Search BST for given key.
+	 *  Does there exist a key-value pair with given key?
+	 *
+	 *  @param key the search key
+	 *  @return true if key is found and false otherwise
+	 */
 	public boolean contains(Key key) {
 		return get(key) != null;
 	}
 
+	/**
+	 *  Search BST for given key.
+	 *  What is the value associated with given key?
+	 *
+	 *  @param key the search key
+	 *  @return value associated with the given key if found, or null if no such key exists.
+	 */
 	public Value get(Key key) { 
 		return get(root, key); 
 	}
@@ -59,6 +76,9 @@ public class LCA <Key extends Comparable<Key>, Value>{
 	/**
 	 *  Insert key-value pair into BST.
 	 *  If key already exists, update with new value.
+	 *
+	 *  @param key the key to insert
+	 *  @param val the value associated with key
 	 */
 	public void put(Key key, Value val) {
 		if (val == null) { delete(key); return; }
@@ -78,8 +98,20 @@ public class LCA <Key extends Comparable<Key>, Value>{
 	/**
 	 * Tree height.
 	 *
-	 * worst case O(N): either all the nodes are to right or all the nods are to the left
-	 * (N is the number of nodes in the BST)
+	 * Asymptotic worst-case running time using Theta notation: worst case O(N) which would occur when
+	 * the tree would act as a list, that meaning either all the nodes are to right or all the nods are to the left
+	 * when N is the number of nodes in the BST.
+	 * 
+	 * @return the number of links from the root to the deepest leaf.
+	 *
+	 * Example 1: for an empty tree this should return -1.
+	 * Example 2: for a tree with only one node it should return 0.
+	 * Example 3: for the following tree it should return 2.
+	 *   B
+	 *  / \
+	 * A   C
+	 *      \
+	 *       D
 	 */
 
 	public int height() { 
@@ -96,6 +128,13 @@ public class LCA <Key extends Comparable<Key>, Value>{
 		}
 	}
 
+	/**
+	 * Median key.
+	 * If the tree has N keys k1 < k2 < k3 < ... < kN, then their median key 
+	 * is the element at position (N+1)/2 (where "/" here is integer division)
+	 *
+	 * @return the median key, or null if the tree is empty.
+	 */
 	public Key median() {
 		if (isEmpty()) return null; //returning null if the bst is empty
 
@@ -126,6 +165,28 @@ public class LCA <Key extends Comparable<Key>, Value>{
 		}
 	} 
 
+
+	/**
+	 * Print all keys of the tree in a sequence, in-order.
+	 * That is, for each node, the keys in the left subtree should appear before the key in the node.
+	 * Also, for each node, the keys in the right subtree should appear before the key in the node.
+	 * For each subtree, its keys should appear within a parenthesis.
+	 *
+	 * Example 1: Empty tree -- output: "()"
+	 * Example 2: Tree containing only "A" -- output: "(()A())"
+	 * Example 3: Tree:
+	 *   B
+	 *  / \
+	 * A   C
+	 *      \
+	 *       D
+	 *
+	 * output: "((()A())B(()C(()D())))"
+	 *
+	 * output of example in the assignment: (((()A(()C()))E((()H(()M()))R()))S(()X()))
+	 *
+	 * @return a String with all keys in the tree, in order, parenthesized.
+	 */
 	public String printKeysInOrder() {
 		String res= "";
 		if (isEmpty()){
@@ -148,6 +209,12 @@ public class LCA <Key extends Comparable<Key>, Value>{
 		 }
 		 
 	 }
+
+	/**
+	 * Pretty Printing the tree. Each node is on one line -- see assignment for details.
+	 *
+	 * @return a multi-line string with the pretty ASCII picture of the tree.
+	 */
 	public String prettyPrintKeys() {
 		if(isEmpty()) return "-null\n";
 	     return prettyPrint(root,"");
@@ -164,6 +231,14 @@ public class LCA <Key extends Comparable<Key>, Value>{
 		
 	}
 
+	/**
+	 * Deletes a key from a tree (if the key is in the tree).
+	 * Note that this method works symmetrically from the Hibbard deletion:
+	 * If the node to be deleted has two child nodes, then it needs to be
+	 * replaced with its predecessor (not its successor) node.
+	 *
+	 * @param key the key to delete
+	 */
 	public void delete(Key key) {
 		root = delete(root, key);	
 	}
@@ -216,6 +291,7 @@ public class LCA <Key extends Comparable<Key>, Value>{
 	     return node;
 	   }
 	
+	// Used: www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree as a help source.
 	 	public Key lowestCommonAncestor (Node node, Key key1, Key key2){
 	 		if (node == null)
 	             return null;
@@ -236,6 +312,7 @@ public class LCA <Key extends Comparable<Key>, Value>{
 	   
 	         return node.key;
 	 	}
-
+	 	
+	 	// Source used: https://github.com/connold9/LCA/blob/master/LCA.java
 	
 }
